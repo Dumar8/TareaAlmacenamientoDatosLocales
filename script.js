@@ -40,9 +40,17 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
         email: email
     };
 
-    let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
-    clientes.push(cliente);
-    localStorage.setItem('clientes', JSON.stringify(clientes));
+    let clientesRegistrados = JSON.parse(localStorage.getItem('ClientesRegistrados')) || [];
+
+    // Verificar si ya existe un cliente con la misma cédula, teléfono o correo electrónico
+    const clienteExistente = clientesRegistrados.find(c => c.cedula === cedula || c.phone === phone || c.email === email);
+    if (clienteExistente) {
+        alert('Error: Ya existe un cliente con esta cédula, teléfono o correo electrónico.');
+        return;
+    }
+
+    clientesRegistrados.push(cliente);
+    localStorage.setItem('ClientesRegistrados', JSON.stringify(clientesRegistrados));
 
     console.log('Datos guardados en localStorage:', cliente);
     
