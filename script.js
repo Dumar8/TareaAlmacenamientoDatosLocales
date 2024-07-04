@@ -30,7 +30,8 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
         return;
     }
 
-    const clientData = {
+    // Guardar datos en localStorage
+    const cliente = {
         firstName: firstName,
         lastName: lastName,
         cedula: cedula,
@@ -39,11 +40,13 @@ document.getElementById('clientForm').addEventListener('submit', function(event)
         email: email
     };
 
-    localStorage.setItem('clientData', JSON.stringify(clientData));
+    let clientes = JSON.parse(localStorage.getItem('clientes')) || [];
+    clientes.push(cliente);
+    localStorage.setItem('clientes', JSON.stringify(clientes));
 
-    console.log('Datos guardados en localStorage:', clientData);
-
-    alert('Datos enviados con éxito y guardados en localStorage!');
+    console.log('Datos guardados en localStorage:', cliente);
+    
+    alert('Datos enviados y guardados con éxito en localStorage!');
 });
 
 function validarCedulaEcuatoriana(cedula) {
